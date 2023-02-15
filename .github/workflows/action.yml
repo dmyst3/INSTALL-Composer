@@ -1,0 +1,21 @@
+name: 'Install PHP Composer'
+description: 'Github Composite action to install php composer'
+inputs:
+  version:
+    description: 'version of PHP you will like to install'
+    required: true
+    default: '8.1'
+runs:
+  using: "composite"
+  steps:
+    - name: Install php
+      if: "! contains(toJSON(steps), 'php')"
+      run: |
+        sudo apt-get update -y
+        sudo apt-get install -y php${{ inputs.version}}
+      shell: bash
+      
+    - name: print dir content
+      run: |
+        ls -la
+      shell: bash
